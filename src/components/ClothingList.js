@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ClothingItemAdd from './ClothingItemAdd';
 import ClothingItemEdit from './ClothingItemEdit';
+import ClothingSearch from './ClothingSearch';
 
 const ClothingList = () => {
   const [clothingItems, setClothingItems] = useState(() => {
@@ -13,6 +14,7 @@ const ClothingList = () => {
     ];
   });
   const [editingItem, setEditingItem] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     localStorage.setItem('clothingItems', JSON.stringify(clothingItems));
@@ -38,9 +40,14 @@ const ClothingList = () => {
     setClothingItems(clothingItems.filter(item => item.id !== id));
   };
 
+  const filteredItems = clothingItems.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h1>Listado de Prendas de Vestir</h1>
+      <ClothingSearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       {editingItem ? (
         <ClothingItemEdit
           currentItem={editingItem}
@@ -51,7 +58,7 @@ const ClothingList = () => {
         <ClothingItemAdd onAdd={addClothingItem} />
       )}
       <ul>
-        {clothingItems.map(item => (
+        {filteredItems.map(item => (
           <li key={item.id}>
             {item.name} - ${item.price}
             <button onClick={() => setEditingItem(item)}>Editar</button>
