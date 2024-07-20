@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ClothingItemAdd from './ClothingItemAdd';
 import ClothingItemEdit from './ClothingItemEdit';
 import ClothingSearch from './ClothingSearch';
+import Notification from './Notification';
 
 const ClothingList = () => {
   const [clothingItems, setClothingItems] = useState(() => {
@@ -15,6 +16,7 @@ const ClothingList = () => {
   });
   const [editingItem, setEditingItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [notification, setNotification] = useState('');
 
   useEffect(() => {
     localStorage.setItem('clothingItems', JSON.stringify(clothingItems));
@@ -25,6 +27,8 @@ const ClothingList = () => {
       ...clothingItems,
       { id: clothingItems.length + 1, ...item }
     ]);
+    setNotification('Prenda añadida con éxito');
+    setTimeout(() => setNotification(''), 3000);
   };
 
   const editClothingItem = (updatedItem) => {
@@ -34,10 +38,14 @@ const ClothingList = () => {
       )
     );
     setEditingItem(null);
+    setNotification('Prenda editada con éxito');
+    setTimeout(() => setNotification(''), 3000);
   };
 
   const removeClothingItem = (id) => {
     setClothingItems(clothingItems.filter(item => item.id !== id));
+    setNotification('Prenda eliminada con éxito');
+    setTimeout(() => setNotification(''), 3000);
   };
 
   const filteredItems = clothingItems.filter(item =>
@@ -46,7 +54,7 @@ const ClothingList = () => {
 
   return (
     <div>
-      <h1>Listado de Prendas de Vestir</h1>
+      <Notification message={notification} />
       <ClothingSearch searchTerm={searchTerm} onSearchChange={setSearchTerm} />
       {editingItem ? (
         <ClothingItemEdit

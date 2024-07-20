@@ -10,22 +10,30 @@
 
 form {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
   margin: 5px;
   padding: 10px;
   font-size: 16px;
+  width: 300px;
 }
 
 button {
   margin: 5px;
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   background-color: #61dafb;
   border: none;
   border-radius: 5px;
+}
+
+button:hover {
+  background-color: #21a1f1;
 }
 
 ul {
@@ -34,15 +42,26 @@ ul {
 }
 
 li {
-  background: #bbb5b5;
+  background: #444;
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;  /* Asegura que el texto sea blanco para contrastar con el fondo oscuro */
 }
 
 li button {
   margin-left: 10px;
+  color: white;  /* Asegura que el texto del botón sea blanco */
+  background-color: #61dafb;  /* Color del botón para un mejor contraste */
+}
+
+.notification {
+  color: green;
+  margin-bottom: 10px;
 }
